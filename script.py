@@ -5,8 +5,8 @@ from xrpl.utils import str_to_hex
 from xrpl.models import Transaction
 from xrpl.transaction import sign
 
-
 seed = getpass.getpass("What's your signer wallet seed? ")
+
 wallet = Wallet.from_seed(seed)
 address = wallet.address
 print(f"Successfully loaded wallet: {address}")
