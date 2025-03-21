@@ -11,9 +11,9 @@ This script provides an easy way of signing a message on XRP using the `xrpl` li
 
 1.  Clone the repository.
 2.  Install dependencies: `pip install -r requirements.txt`
-3.  Set environment variables: `WALLET_SEED` and `MESSAGE`. **Protect your secret key!**
 
 ## Usage
 
 1.  Run the script: `python script.py`
-2.  The script will output the signed message and public key of the signer.
+2.  Provide the script with the required variables (your wallet seedphrase and the message)
+3.  The script will output the signed message and public key of the signer.

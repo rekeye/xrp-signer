@@ -1,23 +1,17 @@
 import os
-from dotenv import load_dotenv
+import getpass
 from xrpl.wallet import Wallet
 from xrpl.utils import str_to_hex
 from xrpl.models import Transaction
 from xrpl.transaction import sign
 
-load_dotenv()
 
-seed = os.getenv("WALLET_SEED")
-if seed is None:
-    raise EnvironmentError("Environment variable WALLET_SEED not set")
-
+seed = getpass.getpass("What's your signer wallet seed? ")
 wallet = Wallet.from_seed(seed)
 address = wallet.address
 print(f"Successfully loaded wallet: {address}")
 
-message = os.getenv("MESSAGE")
-if message is None:
-    raise EnvironmentError("Environment variable MESSAGE not set")
+message = input("What message do you want signed? ")
 
 print("Loading transaction data...")
 hex_message = str_to_hex(message)
