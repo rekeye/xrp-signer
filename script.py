@@ -2,8 +2,9 @@ import os
 import getpass
 from xrpl.wallet import Wallet
 from xrpl.utils import str_to_hex
-from xrpl.models import Transaction
-from xrpl.transaction import sign
+from xrpl.models import AccountSet, Memo
+from xrpl.transaction import sign, autofill_and_sign
+from xrpl.clients import JsonRpcClient
 
 seed = getpass.getpass("What's your signer wallet seed? ")
 
@@ -15,20 +16,16 @@ message = input("What message do you want signed? ")
 
 print("Loading transaction data...")
 hex_message = str_to_hex(message)
-transaction_json = {
-    "account": address,
-    "transaction_type": "AccountSet",
-    "memos": [
-        {
-            "memo": {
-                "memo_data": hex_message
-            }
-        }
-    ]
-}
+transaction = AccountSet(
+    account=address,
+    memos=[
+        Memo(
+            memo_data=hex_message
+        ),
+    ],
+)
 
 print("Signing the message...")
-transaction = Transaction.from_dict(transaction_json)
 signature = sign(transaction, wallet)
 
 print(f"Successfully signed the message: {signature.txn_signature}")
